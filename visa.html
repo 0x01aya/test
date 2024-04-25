@@ -3,24 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Postmessage PoC</title>
-    <script>
-        function pocLink() {
-            let win = window.open('https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html');
-            let msg = "Hello from PoC link";
-            
-            setTimeout(function(){
-                window.parent.postMessage(msg, 'https://secure.checkout.visa.com');
-            }, 5000);
-        }
-        function pocFrame(win) {           
-            let msg = "Hello from iframe";
-            
-            win.postMessage(msg, 'https://secure.checkout.visa.com');          
-        }
-    </script>
 </head>
 <body>
-    <a href="#" onclick="pocLink();">PoC link</a>
-    <iframe src="https://xsnapfish.com/visa.html" onload="pocFrame(this.contentWindow)"></iframe>
+    <script>
+        // Function to send a message to the parent window
+        function sendMessageToParent() {
+            let msg = "Hello from PoC link";
+            window.parent.postMessage(msg, 'https://secure.checkout.visa.com');
+        }
+    </script>
+    <a href="#" onclick="sendMessageToParent(); return false;">PoC link</a>
 </body>
 </html>
